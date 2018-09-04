@@ -14,6 +14,10 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 ]
 
+#url(r'^media/(?P<path>.*)$', serve, {
+#            'document_root': settings.MEDIA_ROOT,
+#            }),
+
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
