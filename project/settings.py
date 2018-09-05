@@ -32,6 +32,15 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_COOKIE_SECURE = True	
+SESSION_COOKIE_SECURE = True
+
+import re	
+IGNORABLE_404_URLS = [
+    re.compile(r'^/apple-touch-icon.*\.png$'),	
+    re.compile(r'^/favicon\.ico$'),	
+    re.compile(r'^/robots\.txt$'),	
+]
 
 # Application definition
 
@@ -56,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
