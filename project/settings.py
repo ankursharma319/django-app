@@ -31,7 +31,10 @@ SECRET_KEY = os.getenv(
 DEBUG = False
 
 #ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS=[os.environ.get('OPENSHIFT_DNS', '127.0.0.1')]
+ALLOWED_HOSTS = ['ankur-webapp-django-app.193b.starter-ca-central-1.openshiftapps.com',
+                 '*.starter-ca-central-1.openshiftapps.com',
+                 '*.openshift.com',
+                 '10.128.75.163']
 
 #CSRF_COOKIE_DOMAIN = ""
 CSRF_COOKIE_SECURE = True	
