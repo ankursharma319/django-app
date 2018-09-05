@@ -28,15 +28,10 @@ SECRET_KEY = os.getenv(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-#ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['ankur-webapp-django-app.193b.starter-ca-central-1.openshiftapps.com',
-                 '.starter-ca-central-1.openshiftapps.com',
-                 '.openshift.com',
-                 'localhost',
-                 '127.0.0.1',
-]
+ALLOWED_HOSTS = ['ankur-webapp-django-app.193b.starter-ca-central-1.openshiftapps.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 from socket import gethostname, gethostbyname 
 ALLOWED_HOSTS.append(gethostname())
@@ -116,6 +111,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'welcome',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
