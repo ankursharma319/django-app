@@ -22,40 +22,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # The SECRET_KEY is provided via an environment variable in OpenShift
 SECRET_KEY = os.getenv(
-    'DJANGO_SECRET_KEY'
+    'DJANGO_SECRET_KEY',
     # safe value used for development when DJANGO_SECRET_KEY might not be set
+    '9e4@&tw46$l31)zrqe3wi+-slqm(ruvz&se0^%9#6(_w3ui!c0'
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-DEFAULT_FROM_EMAIL = os.getenv('GMAIL_USER','')
-SERVER_FROM_EMAIL = os.getenv('GMAIL_USER','')
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv('GMAIL_USER','')
-EMAIl_HOST_PASSWORD = os.getenv('GMAIL_PASSWORD','')
+ALLOWED_HOSTS = ['*']
 
-ADMINS = [('Ankur', os.getenv('YAHOOMAIL_USER',''))]
-MANAGERS = [('Ankur', os.getenv('YAHOOMAIL_USER',''))]
-#IGNORABLE_404_URLS = ['regexoffaviconOrRobotstxt_commonly404']
-
-import re
-IGNORABLE_404_URLS = [
-    re.compile(r'^/apple-touch-icon.*\.png$'),
-    re.compile(r'^/favicon\.ico$'),
-    re.compile(r'^/robots\.txt$'),
-]
-IGNORABLE_404_URLS = [
-    re.compile(r'\.(php|cgi)$'),
-    re.compile(r'^/phpmyadmin/'),
-]
-
-#ALLOWED_HOSTS = ['*']
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-#ALLOWED_HOSTS = ['.django-psql-persistent-ankurs-portfolio.193b.starter-ca-central-1.openshiftapps.com']
-ALLOWED_HOSTS=[os.environ.get('OPENSHIFT_DNS')]
 
 # Application definition
 
@@ -80,7 +56,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.common.BrokenLinkEmailsMiddleware'
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -146,11 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-MEDIA_ROOT = '/data/'
-MEDIA_URL='/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
