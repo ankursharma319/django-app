@@ -32,13 +32,13 @@ DEBUG = False
 
 #ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['ankur-webapp-django-app.193b.starter-ca-central-1.openshiftapps.com',
-                 '*.starter-ca-central-1.openshiftapps.com',
-                 '*.openshift.com',
-                 '10.128.75.163',
-                 '10.128.75.*',
-                 '10.128.74.*',
-                 '*.128.*'
+                 '.starter-ca-central-1.openshiftapps.com',
+                 '.openshift.com',
 ]
+
+for a in range(10, 99, 1):
+    for b in range(100, 255, 1):
+        ALLOWED_HOSTS.append('10.128.{0}.{1}'.format(a,b)) 
 
 #CSRF_COOKIE_DOMAIN = ""
 CSRF_COOKIE_SECURE = True	
