@@ -215,6 +215,12 @@ To do that, you should add a properly configured database server or ask your Ope
 
 Redeploy your application to have your changes applied, and open the welcome page again to make sure your application is successfully connected to the database server.
 
+## My notes	
+ Deploying to prod	
+ - debug=false	
+ - SECRET_KEY not hardcoded	
+ - allowed hosts	
+ - Database connection parameters, not hardcoded and diff	
 
 ## Looking for help
 
