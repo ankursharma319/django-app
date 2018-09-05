@@ -30,8 +30,10 @@ SECRET_KEY = os.getenv(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS=[os.environ.get('OPENSHIFT_DNS', '127.0.0.1')]
 
+#CSRF_COOKIE_DOMAIN = ""
 CSRF_COOKIE_SECURE = True	
 SESSION_COOKIE_SECURE = True
 
@@ -86,6 +88,9 @@ EMAIL_HOST_USER = os.getenv('GMAIL_USER','')
 EMAIl_HOST_PASSWORD = os.getenv('GMAIL_PASSWORD','')	
 ADMINS = [('Ankur', os.getenv('YAHOOMAIL_USER',''))]	
 MANAGERS = [('Ankur', os.getenv('YAHOOMAIL_USER',''))]
+
+#MEDIA_ROOT = '/data/'	
+#MEDIA_URL='/media/'
 
 # Application definition
 
