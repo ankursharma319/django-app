@@ -34,11 +34,17 @@ DEBUG = False
 ALLOWED_HOSTS = ['ankur-webapp-django-app.193b.starter-ca-central-1.openshiftapps.com',
                  '.starter-ca-central-1.openshiftapps.com',
                  '.openshift.com',
+                 'localhost',
+                 '127.0.0.1',
 ]
 
-for a in range(10, 99, 1):
-    for b in range(100, 255, 1):
-        ALLOWED_HOSTS.append('10.128.{0}.{1}'.format(a,b)) 
+from socket import gethostname, gethostbyname 
+ALLOWED_HOSTS.append(gethostname())
+ALLOWED_HOSTS.append(gethostbyname(gethostname()))
+
+#for a in range(40, 99, 1):
+#    for b in range(127, 255, 1):
+#        ALLOWED_HOSTS.append('10.128.{0}.{1}'.format(a,b)) 
 
 #CSRF_COOKIE_DOMAIN = ""
 CSRF_COOKIE_SECURE = True	
