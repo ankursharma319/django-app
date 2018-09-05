@@ -71,10 +71,10 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'debug_file': {
+        'welcomelogfile': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug_file.log'),
+            'filename': os.path.join(BASE_DIR, 'welcome.log'),
             'maxBytes': 1024*1024*15, # 15MB
             'backupCount': 10,
         }
@@ -85,8 +85,8 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'django': {
-            'handlers': ['debug_file',],
+        'welcome': {
+            'handlers': ['welcomelogfile',],
             'level': 'DEBUG',
         },
     }
@@ -181,7 +181,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-#CSRF_COOKIE_DOMAIN = ""
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
