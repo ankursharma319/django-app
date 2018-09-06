@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import re
 import socket
+
 from decouple import config, Csv
+
 from . import database
 
 # custom for me
@@ -131,11 +133,16 @@ SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY', default='')
 SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET', default='')
 SOCIAL_AUTH_TWITTER_KEY = config('SOCIAL_AUTH_TWITTER_KEY', default='')
 SOCIAL_AUTH_TWITTER_SECRET = config('SOCIAL_AUTH_TWITTER_SECRET', default='')
+SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY', default='')
+SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET', default='')
+SOCIAL_AUTH_YAHOO_KEY = config('SOCIAL_AUTH_YAHOO_KEY', default='')
+SOCIAL_AUTH_YAHOO_SECRET = config('SOCIAL_AUTH_YAHOO_SECRET', default='')
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.yahoo.YahooOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -143,7 +150,7 @@ AUTHENTICATION_BACKENDS = (
 # MEDIA_URL='/media/'
 
 # Application definition
-
+#
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
