@@ -202,21 +202,7 @@ dmypy.json
 pyvenv.cfg
 pip-selfcheck.json
 
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.xhtml
-
-
-# End of https://www.gitignore.io/api/web,django,python
+# End of https://www.gitignore.io/api/django,python
 
 
 # Created by https://www.gitignore.io/api/intellij,pycharm+all
@@ -316,22 +302,6 @@ fabric.properties
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
-
-# CMake
-
-# Mongo Explorer plugin
-
-# File-based project format
-
-# IntelliJ
-
-# mpeltonen/sbt-idea plugin
-
-# JIRA plugin
-
-# Cursive Clojure plugin
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
 
 # Editor-based Rest Client
 
