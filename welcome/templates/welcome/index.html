@@ -1,3 +1,4 @@
+{%  load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -213,9 +214,18 @@ pre {
 <section class='container'>
           <hgroup>
             <h1>Welcome to Ankurs web app</h1>
+            {% if user.is_authenticated %}
+              Hi {{ user.username }}!
+              <p><a href="{% url 'logout' %}">logout</a></p>
+            {% else %}
+              <p>You are not logged in</p>
+              <a href="{% url 'login' %}">login</a>
+            {% endif %}
           </hgroup>
 
-
+        <div class="row">
+            <img src="{% static "welcome/luka_modric.jpg" %}" alt="Luka Modric" height="50%" width="50%"/>
+        </div>
         <div class="row">
           <section class='col-xs-12 col-sm-6 col-md-6'>
             <section>
