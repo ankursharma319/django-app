@@ -16,6 +16,9 @@ import socket
 from decouple import config, Csv
 from . import database
 
+# custom for me
+IS_PRODUCTION_ENV = config('IS_PRODUCTION_ENV', default=True, cast=bool)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -150,10 +153,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'django_extensions',
     'social_django',
     'welcome',
 ]
+
+if not IS_PRODUCTION_ENV:
+    INSTALLED_APPS.append('django_extensions')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
