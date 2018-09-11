@@ -36,6 +36,11 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 ALLOWED_HOSTS.append(socket.gethostname())
 ALLOWED_HOSTS.append(socket.gethostbyname(socket.gethostname()))
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+ALLOWED_HOSTS.append(s.getsockname()[0])
+s.close()
+# ALLOWED_HOSTS = ["*"]
 
 # CSRF_COOKIE_DOMAIN = ""
 CSRF_COOKIE_SECURE = True
@@ -102,6 +107,10 @@ LOGGING = {
             'handlers': ['django_debug_file', 'console'],
             'level': 'DEBUG',
             'propogate': True
+        },
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'django_debug_file'],
         },
         'welcome': {
             'handlers': ['project_debug_file', 'console'],
