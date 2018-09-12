@@ -19,7 +19,8 @@ from decouple import config, Csv
 from . import database
 
 # custom for me
-IS_PRODUCTION_ENV = config('IS_PRODUCTION_ENV', default=True, cast=bool)
+IS_DOCKER = config('IS_DOCKER', default=False, cast=bool)
+IS_WINDOWS = config('IS_WINDOWS', default=False, cast=bool)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,6 +37,13 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 ALLOWED_HOSTS.append(socket.gethostname())
 ALLOWED_HOSTS.append(socket.gethostbyname(socket.gethostname()))
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+ALLOWED_HOSTS.append(s.getsockname()[0])
+s.close()
+
+if IS_DOCKER:
+    ALLOWED_HOSTS = ["*"]
 
 # CSRF_COOKIE_DOMAIN = ""
 CSRF_COOKIE_SECURE = True
@@ -71,14 +79,14 @@ LOGGING = {
             'formatter': 'simple'
         },
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'django_debug_file': {
+        'all_debug_file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'django_debug.log'),
+            'filename': os.path.join(BASE_DIR, 'all_debug.log'),
             'maxBytes': 1024 * 1024 * 15,  # 15MB
             'backupCount': 10,
             'formatter': 'verbose'
@@ -98,9 +106,9 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'django': {
-            'handlers': ['django_debug_file', 'console'],
+        '': {
             'level': 'DEBUG',
+            'handlers': ['console', 'all_debug_file'],
             'propogate': True
         },
         'welcome': {
@@ -121,14 +129,6 @@ SERVER_FROM_EMAIL = EMAIL_HOST_USER
 ADMINS = [('Admin', EMAIL_HOST_USER)]
 MANAGERS = [('Manager', EMAIL_HOST_USER)]
 
-SOCIAL_AUTH_POSTGRES_JSONFIELD = True
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
-
 SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY', default='')
 SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET', default='')
 SOCIAL_AUTH_TWITTER_KEY = config('SOCIAL_AUTH_TWITTER_KEY', default='')
@@ -139,10 +139,6 @@ SOCIAL_AUTH_YAHOO_KEY = config('SOCIAL_AUTH_YAHOO_KEY', default='')
 SOCIAL_AUTH_YAHOO_SECRET = config('SOCIAL_AUTH_YAHOO_SECRET', default='')
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.yahoo.YahooOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -160,11 +156,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'social_django',
     'welcome',
 ]
 
-if not IS_PRODUCTION_ENV:
+if IS_WINDOWS:
     INSTALLED_APPS.append('django_extensions')
 
 MIDDLEWARE = [
@@ -177,8 +172,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware'
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -186,7 +180,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'templates')), ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -194,8 +188,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },
